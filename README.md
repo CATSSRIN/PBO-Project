@@ -1,7 +1,8 @@
 # PBO-Project
 This repo is made for the class "Pemrograman Berorientasi Objek" with its projects
 <br>
-For this project we need to have this features :
+<br>
+# For this project we need to have this features :
 - Make a game that have a minimal of 3 objects
 - must have these features :
    - class
