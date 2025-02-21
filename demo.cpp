@@ -109,18 +109,34 @@ class cPaddle
 
 int main()
 {
-    cBall c(0, 0);
-    cout << c << endl;
-    c.randomDirection();
-    cout << c << endl;
-    c.Move();
-    cout << c << endl;
-    c.randomDirection();
-    c.Move();
-    cout << c << endl;
-    c.randomDirection();
-    c.Move();
-    cout << c << endl;
+    cPaddle p1(0, 0);
+    cPaddle p2(10, 0);
+    cout << p1 << endl;
+    cout << p2 << endl;
+    p1.moveUp();
+    p2.moveDown();
+    cout << p1 << endl;
+    cout << p2 << endl;
+
+
+
+
+
+
+
+
+    // cBall c(0, 0);
+    // cout << c << endl;
+    // c.randomDirection();
+    // cout << c << endl;
+    // c.Move();
+    // cout << c << endl;
+    // c.randomDirection();
+    // c.Move();
+    // cout << c << endl;
+    // c.randomDirection();
+    // c.Move();
+    // cout << c << endl;
 
     return 0;
 }
