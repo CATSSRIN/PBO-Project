@@ -86,10 +86,11 @@ int main()
     c.Move();
     cout << c << endl;
     c.randomDirection();
-    cout << c << endl;
     c.Move();
     cout << c << endl;
-    
+    c.randomDirection();
+    c.Move();
+    cout << c << endl;
 
     return 0;
 }
