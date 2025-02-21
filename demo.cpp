@@ -1,4 +1,8 @@
 #include <iostream>
+#include <conio.h>
+#include <time.h>
+#include <windows.h>
+
 using namespace std;
 
 enum eDir { STOP = 0, LEFT = 1, UPLEFT = 2, DOWNLEFT = 3, RIGHT = 4, UPRIGHT = 5, DOWNRIGHT = 6 };
@@ -106,6 +110,92 @@ class cPaddle
             return o;
         }
 };
+class cGameManager
+{
+    private: 
+        int width, height;
+        int score1, score2;
+        char up1, down1, up2, down2;
+        bool quit;
+        cBall * ball;
+        cPaddle * player1;
+        cPaddle * player2;
+
+    public:
+        cGameManager(int w, int h)
+        {
+            srand(time(NULL));
+            quit = false;
+            up1 = 'w'; down1 = 's';
+            up2 = 'i'; down2 = 'k';
+            width = w; height = h;
+            score1 = score2 = 0;
+            ball = new cBall(w/2, h/2);
+            player1 = new cPaddle(1, h/2 - 3);
+            player2 = new cPaddle(w - 2, h/2 - 3);
+        }
+        ~cGameManager()
+        {
+            delete ball, player1, player2;
+        }
+        void ScoreUp(cPaddle * player)
+        {
+            if (player == player1)
+                score1++;
+            else if (player == player2)
+                score2++;
+
+            ball->Reset();
+            player1->Reset();
+            player2->Reset();
+        }
+        void Draw()
+        {
+            system("cls");
+            for (int i = 0; i < width; i++)
+            {
+                cout << "#";
+            }
+            cout << endl;
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (j == 0)
+                        cout << "#";
+                    else if (j == width - 1)
+                        cout << "#";
+                    else if (j == ball->getX() && i == ball->getY())
+                        cout << "O";
+                    else if (j == player1->getX() && i >= player1->getY() && i < player1->getY() + 4)
+                        cout << "|";
+                    else if (j == player2->getX() && i >= player2->getY() && i < player2->getY() + 4)
+                        cout << "|";
+                    else
+                        cout << " ";
+                }
+                cout << endl;
+            }
+
+            for (int i = 0; i < width; i++)
+            {
+                cout << "#";
+            }
+            cout << endl;
+
+            cout << "Score 1: " << score1 << " Score 2: " << score2 << endl;
+        }
+        void Input()
+        {
+            ball->Move();
+
+            int ballX = ball->getX();
+            int ballY = ball->getY();
+            int player1
+
+};
+
 
 int main()
 {
