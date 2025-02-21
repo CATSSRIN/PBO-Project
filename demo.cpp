@@ -134,6 +134,7 @@ class cGameManager
             player1 = new cPaddle(1, h/2 - 3);
             player2 = new cPaddle(w - 2, h/2 - 3);
         }
+
         ~cGameManager()
         {
             delete ball, player1, player2;
@@ -149,29 +150,40 @@ class cGameManager
             player1->Reset();
             player2->Reset();
         }
+
         void Draw()
         {
             system("cls");
-            for (int i = 0; i < width; i++)
-            {
-                cout << "#";
-            }
-            cout << endl;
+            for (int i = 0; i < width + 2; i++)
+                cout << "\xB2";
+            cout << endl;   
+
 
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
+                    int ballx = ball->getX();
+                    int bally = ball->getY();
+                    int player1x = player1->getX();
+                    int player1y = player1->getY();
+                    int player2x = player2->getX();
+                    int player2y = player2->getY();
+
+
+
+
+
                     if (j == 0)
-                        cout << "#";
+                        cout << "\xB2";
                     else if (j == width - 1)
                         cout << "#";
                     else if (j == ball->getX() && i == ball->getY())
-                        cout << "O";
+                        cout << "O"; //ball
                     else if (j == player1->getX() && i >= player1->getY() && i < player1->getY() + 4)
-                        cout << "|";
+                        cout << "|"; //player 1
                     else if (j == player2->getX() && i >= player2->getY() && i < player2->getY() + 4)
-                        cout << "|";
+                        cout << "|"; //player 2
                     else
                         cout << " ";
                 }
@@ -192,21 +204,31 @@ class cGameManager
 
             int ballX = ball->getX();
             int ballY = ball->getY();
-            int player1
+            int player1;
 
 };
 
 
 int main()
 {
-    cPaddle p1(0, 0);
-    cPaddle p2(10, 0);
-    cout << p1 << endl;
-    cout << p2 << endl;
-    p1.moveUp();
-    p2.moveDown();
-    cout << p1 << endl;
-    cout << p2 << endl;
+    cGameManager c(40, 20);
+    c.Draw();
+
+
+
+
+
+
+
+
+    // cPaddle p1(0, 0);
+    // cPaddle p2(10, 0);
+    // cout << p1 << endl;
+    // cout << p2 << endl;
+    // p1.moveUp();
+    // p2.moveDown();
+    // cout << p1 << endl;
+    // cout << p2 << endl;
 
 
 
@@ -229,4 +251,4 @@ int main()
     // cout << c << endl;
 
     return 0;
-}
+};
