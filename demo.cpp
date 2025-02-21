@@ -68,12 +68,28 @@ class cBall
                     break;
             }
         }
+        friend ostream & operator<<(ostream & o, cBall c)
+        {
+            o << "Ball [" << c.x << "," << c.y << "][" << c.direction << "]";
+            return o;
+        }
 
 };
 
 
 int main()
 {
+    cBall c(0, 0);
+    cout << c << endl;
+    c.randomDirection();
+    cout << c << endl;
+    c.Move();
+    cout << c << endl;
+    c.randomDirection();
+    cout << c << endl;
+    c.Move();
+    cout << c << endl;
+    
 
     return 0;
 }
