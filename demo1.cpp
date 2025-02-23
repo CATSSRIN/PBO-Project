@@ -52,7 +52,7 @@ public:
         case RIGHT:
             x++;
             break;
-        case UpLeft:
+        case UPLEFT:
             x--; y--;
             break;
         case DOWNLEFT:
@@ -131,7 +131,9 @@ class cGameManager
         }
         ~cGameManager()
         {
-            delete ball, player1, player2;
+            delete ball; 
+            delete player1;
+            delete player2;
         }
         void ScoreUp(cPaddle *player)
         {
@@ -152,7 +154,7 @@ class cGameManager
 
             for(int i = 0; i < height; i++)
             {
-                for (int j = 0; j < width; i++)
+                for (int j = 0; j < width; j++)
                 {
                     int ballx = ball->getX();
                     int bally = ball->getY();
@@ -202,7 +204,7 @@ class cGameManager
                 cout << "\xB2";
             cout << endl;
 
-            cout << "score 1 :" << score1 << endl <<"score 2: " << score2 << endl;
+            cout << "score 1 :" << score1 << endl <<"score 2 : " << score2 << endl;
 
         }
         void input()
@@ -221,16 +223,17 @@ class cGameManager
                 if (current == up1)
                     if (player1y > 0)
                         player1->moveUp();
-                if (current == down1)
-                    if (player1y + 4 < height)
-                        player1->moveDown(height);
+                    if (current == down1)
+                        if (player1y + 4 < height)
+                            player1->moveDown(); // <-- moveDown() takes no arguments
+                    
 
                 if (current == up2)
                     if (player2y > 0)
                         player2->moveUp();
                 if (current == down2)
                     if (player2y + 4 < height)
-                        player2->moveDown(height);
+                        player2->moveDown(); // <-- moveDown() takes no arguments
 
                 if (ball->getDirection() == STOP)
                     ball->randomDirection();
