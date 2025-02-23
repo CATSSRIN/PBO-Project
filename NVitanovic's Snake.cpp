@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <cstdlib>
 #include <ctime>
+
 using namespace std;
 bool gameOver;
 const int width = 20;
