@@ -181,9 +181,9 @@ class cGameManager
                     else if (j == ball->getX() && i == ball->getY())
                         cout << "O"; //ball
                     else if (j == player1->getX() && i >= player1->getY() && i < player1->getY() + 4)
-                        cout << "|"; //player 1
+                        cout << "\xDB"; //player 1
                     else if (j == player2->getX() && i >= player2->getY() && i < player2->getY() + 4)
-                        cout << "|"; //player 2
+                        cout << "\xDB"; //player 2
                     else
                         cout << " ";
                 }
@@ -192,7 +192,7 @@ class cGameManager
 
             for (int i = 0; i < width; i++)
             {
-                cout << "#";
+                cout << "\xB2";
             }
             cout << endl;
 
@@ -205,8 +205,10 @@ class cGameManager
             int ballX = ball->getX();
             int ballY = ball->getY();
             int player1;
+        }
 
 };
+
 
 
 int main()
@@ -251,4 +253,4 @@ int main()
     // cout << c << endl;
 
     return 0;
-};
+}
