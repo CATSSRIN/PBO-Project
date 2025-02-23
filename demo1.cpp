@@ -145,13 +145,19 @@ class cGameManager
             player1->Reset();
             player2->Reset();
         }
+
         void Draw()
         {
-            system("cls");
+            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+            COORD cursorPosition;
+            cursorPosition.X = 0;
+            cursorPosition.Y = 0;
+            SetConsoleCursorPosition(hConsole, cursorPosition); // Moves cursor to top-left corner
+        
             for (int i = 0; i < width + 2; i++)
                 cout << "\xB2";
             cout << endl;
-
+        
             for(int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
@@ -162,51 +168,30 @@ class cGameManager
                     int player1y = player1->getY();
                     int player2x = player2->getX();
                     int player2y = player2->getY();
-
-                    if( j == 0 )
-                        cout << "\xB2";
-
-                    if(ballx == j && bally == i)
-                        cout << "o"; //ball
-                    else if(player1x == j && player1y == i)
-                        cout << "\xDB"; //player1
-                    else if(player2x == j && player2y == i)
-                        cout << "\xDB"; //player2
-
-                    else if(player1x == j && player1y + 1 == i)
-                        cout << "\xDB"; //player1
-                    else if(player1x == j && player1y + 2 == i)
-                        cout << "\xDB"; //player1
-                    else if(player1x == j && player1y + 3 == i)
-                        cout << "\xDB"; //player1
-               
-                    else if(player2x == j && player2y + 1 == i)
-                        cout << "\xDB"; //player1
-                    else if(player2x == j && player2y + 2 == i)
-                        cout << "\xDB"; //player1
-                    else if(player2x == j && player2y + 3 == i)
-                        cout << "\xDB"; //player1
-
+        
+                    if (j == 0) cout << "\xB2";
+        
+                    if (ballx == j && bally == i)
+                        cout << "o"; // Ball
+                    else if ((player1x == j && (player1y == i || player1y + 1 == i || player1y + 2 == i || player1y + 3 == i)))
+                        cout << "\xDB"; // Player 1
+                    else if ((player2x == j && (player2y == i || player2y + 1 == i || player2y + 2 == i || player2y + 3 == i)))
+                        cout << "\xDB"; // Player 2
                     else
                         cout << " ";
-
-
-                    if(j == width - 1)
-                        cout << "\xB2";
-
-                    
+        
+                    if (j == width - 1) cout << "\xB2";
                 }
                 cout << endl;
-
             }
-
+        
             for (int i = 0; i < width + 2; i++)
                 cout << "\xB2";
             cout << endl;
-
-            cout << "score 1 :" << score1 << endl <<"score 2 : " << score2 << endl;
-
+        
+            cout << "Score 1: " << score1 << " | Score 2: " << score2 << endl;
         }
+        
         void input()
         {
             ball->Move();
