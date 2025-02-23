@@ -189,7 +189,7 @@ class cGameManager
                 cout << "\xB2";
             cout << endl;
         
-            cout << "Score 1: " << score1 << " | Score 2: " << score2 << endl;
+            cout << "score 1 :" << score1 << endl <<"score 2 : " << score2 << endl;
         }
         
         void input()
