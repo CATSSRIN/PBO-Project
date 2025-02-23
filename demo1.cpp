@@ -4,7 +4,9 @@
 #include <windows.h>
 
 using namespace std;
-enum eDir {STOP = 0, Left = 1, UpLeft = 2, DOWNLEFT =3, RIGHT = 4, UPRIGHT = 5, DOWNRIGHT = 6};
+
+enum eDir {STOP = 0, Left = 1, UPLEFT = 2, DOWNLEFT =3, RIGHT = 4, UPRIGHT = 5, DOWNRIGHT = 6};
+
 class cBall
 {
 private:
@@ -141,12 +143,152 @@ class cGameManager
             player1->Reset();
             player2->Reset();
         }
+        void Draw()
+        {
+            system("cls");
+            for (int i = 0; i < width + 2; i++)
+                cout << "\xB2";
+            cout << endl;
+
+            for(int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; i++)
+                {
+                    int ballx = ball->getX();
+                    int bally = ball->getY();
+                    int player1x = player1->getX();
+                    int player1y = player1->getY();
+                    int player2x = player2->getX();
+                    int player2y = player2->getY();
+
+                    if( j == 0 )
+                        cout << "\xB2";
+
+                    if(ballx == j && bally == i)
+                        cout << "o"; //ball
+                    else if(player1x == j && player1y == i)
+                        cout << "\xDB"; //player1
+                    else if(player2x == j && player2y == i)
+                        cout << "\xDB"; //player2
+
+                    else if(player1x == j && player1y + 1 == i)
+                        cout << "\xDB"; //player1
+                    else if(player1x == j && player1y + 2 == i)
+                        cout << "\xDB"; //player1
+                    else if(player1x == j && player1y + 3 == i)
+                        cout << "\xDB"; //player1
+               
+                    else if(player2x == j && player2y + 1 == i)
+                        cout << "\xDB"; //player1
+                    else if(player2x == j && player2y + 2 == i)
+                        cout << "\xDB"; //player1
+                    else if(player2x == j && player2y + 3 == i)
+                        cout << "\xDB"; //player1
+
+                    else
+                        cout << " ";
+
+
+                    if(j == width - 1)
+                        cout << "\xB2";
+
+                    
+                }
+                cout << endl;
+
+            }
+
+            for (int i = 0; i < width + 2; i++)
+                cout << "\xB2";
+            cout << endl;
+
+            cout << "score 1 :" << score1 << endl <<"score 2: " << score2 << endl;
+
+        }
+        void input()
+        {
+            ball->Move();
+            int ballx = ball->getX();
+            int bally = ball->getY();
+            int player1x = player1->getX();
+            int player1y = player1->getY();
+            int player2x = player2->getX();
+            int player2y = player2->getY();
+
+            if (_kbhit())
+            {
+                char current = _getch();
+                if (current == up1)
+                    if (player1y > 0)
+                        player1->moveUp();
+                if (current == down1)
+                    if (player1y + 4 < height)
+                        player1->moveDown(height);
+
+                if (current == up2)
+                    if (player2y > 0)
+                        player2->moveUp();
+                if (current == down2)
+                    if (player2y + 4 < height)
+                        player2->moveDown(height);
+
+                if (ball->getDirection() == STOP)
+                    ball->randomDirection();
+
+                if (current == 'q')
+                    quit = true;
+            }
+        }
+        void Logic()
+        {
+            int ballx = ball->getX();
+            int bally = ball->getY();
+            int player1x = player1->getX();
+            int player1y = player1->getY();
+            int player2x = player2->getX();
+            int player2y = player2->getY();
+
+            //left paddle
+            for (int i = 0; i < 4; i++)
+                if (ballx == player1x + 1)
+                    if (bally == player1y + i)
+                        ball->changeDirection((eDir)((rand() % 3) + 4));
+
+            //right paddle
+            for (int i = 0; i < 4; i++)
+                if (ballx == player2x - 1)
+                    if (bally == player2y + i)
+                        ball->changeDirection((eDir)((rand() % 3) + 1));
+
+            //bottom wall
+            if (bally == height - 1)
+                ball->changeDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
+            
+            //top wall
+            if (bally == 0)
+                ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
+            if (ballx == width - 1)
+                ScoreUp(player1);
+            //left wall
+            if (ballx == 0)
+                ScoreUp(player2);
+        }
+        void Run()
+        {
+            while (!quit)
+            {
+                Draw();
+                input();
+                Logic();
+            }
+        }
 
     };
 
 int main()
 {
-
+    cGameManager c(40,20);
+    c.Run();
 
     return 0;
 }
