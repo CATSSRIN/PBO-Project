@@ -12,8 +12,8 @@ This repo is made for the class "Pemrograman Berorientasi Objek" with its projec
 - animation is using clear screen, printf, scanf
 <br>
 
-Week 1 : <br>
+Week 1 : 
 - add constructor destructor <br>
 
-Week 3 : <br>
+Week 3 : 
 - add inheritance
