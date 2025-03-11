@@ -17,3 +17,7 @@ Week 1 :
 
 Week 3 : 
 - add inheritance
+
+week 4 :
+- inheritance
+- private, protect, public
