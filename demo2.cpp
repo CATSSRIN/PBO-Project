@@ -59,26 +59,28 @@ public:
 };
 
 class cGameManager {
-private:
-    int width, height;
-    int score1, score2;
-    char up1, down1, up2, down2;
-    bool quit;
-    cBall* ball;
-    cPaddle* player1;
-    cPaddle* player2;
-public:
-    cGameManager(int w, int h) {
-        srand(time(NULL));
-        quit = false;
-        up1 = 'w'; down1 = 's';
-        up2 = 'i'; down2 = 'k';
-        score1 = score2 = 0;
-        width = w; height = h;
-        ball = new cBall(w/2, h/2);
-        player1 = new cPaddle(1, h/2 - 3);
-        player2 = new cPaddle(w - 2, h/2 - 3);
-    }
+    private:
+        int width, height;
+        int score1, score2;
+        char up1, down1, up2, down2;
+        bool quit;
+        bool gameStarted; // Flag to indicate if the game has started
+        cBall* ball;
+        cPaddle* player1;
+        cPaddle* player2;
+    public:
+        cGameManager(int w, int h) {
+            srand(time(NULL));
+            quit = false;
+            gameStarted = false; // Initialize the flag to false
+            up1 = 'w'; down1 = 's';
+            up2 = 'i'; down2 = 'k';
+            score1 = score2 = 0;
+            width = w; height = h;
+            ball = new cBall(w/2, h/2);
+            player1 = new cPaddle(1, h/2 - 3);
+            player2 = new cPaddle(w - 2, h/2 - 3);
+        }
     ~cGameManager() {
         delete ball;
         delete player1;
@@ -123,15 +125,42 @@ public:
             if (current == down2 && player2->getY() + 4 < height) player2->moveDown();
             if (ball->getDirection() == STOP) ball->randomDirection();
             if (current == 'q') quit = true;
+            if (!gameStarted) {
+                gameStarted = true; // Set the flag to true when the game starts
+                ball->randomDirection(); // Start the ball movement
+            }
         }
-        ball->Move();
     }
+
     void Logic() {
-        if (ball->getY() == height - 1 || ball->getY() == 0)
-            ball->changeDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
-        if (ball->getX() == width - 1) ScoreUp(player1);
-        if (ball->getX() == 0) ScoreUp(player2);
+        if (gameStarted) { // Only move the ball if the game has started
+            Sleep(50);
+
+            // Ball collision with walls
+            if (ball->getY() == height - 1 || ball->getY() == 0) {
+                ball->changeDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : (ball->getDirection() == DOWNLEFT ? UPLEFT : (ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT)));
+            }
+
+            // Ball collision with paddles
+            if (ball->getX() == player1->getX() + 1) {
+                if (ball->getY() >= player1->getY() && ball->getY() <= player1->getY() + 3) {
+                    ball->changeDirection((eDir)((rand() % 3) + 4)); // Randomize direction to RIGHT, UPRIGHT, or DOWNRIGHT
+                }
+            }
+            if (ball->getX() == player2->getX() - 1) {
+                if (ball->getY() >= player2->getY() && ball->getY() <= player2->getY() + 3) {
+                    ball->changeDirection((eDir)((rand() % 3) + 1)); // Randomize direction to LEFT, UPLEFT, or DOWNLEFT
+                }
+            }
+
+            // Ball out of bounds
+            if (ball->getX() == width - 1) ScoreUp(player1);
+            if (ball->getX() == 0) ScoreUp(player2);
+
+            ball->Move(); // Move the ball
+        }
     }
+    
     void Run() {
         while (!quit) {
             Draw();
