@@ -21,3 +21,18 @@ Week 3 :
 week 4 :
 - inheritance
 - private, protect, public
+
+# Submitting the project
+kumpulkan jadi 1 folder (untuk 1 kelas) -> zip 
+
+Tugas pengganti ETS
+buat publikasi video pada social media (youtube channel, reels IG, tiktok) mengenai tutorial pembuatan aplikasi game sederhana dengan konsep obyek oriented programming pada bahasa C. jelaskan mengenai
+1. Class dan Obyek 
+2. ⁠Constructor dan Destructor
+3. ⁠Inheritance
+
+NB : 
+- tidak boleh menyebutkan bahwa itu adalah tugas kuliah
+- ⁠boleh tidak tampak muka (cukup share screen)
+
+kirim resume dalam bentuk PDF berisi kode program (full) dan alamat link publikasi.
